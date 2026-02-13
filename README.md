@@ -1,6 +1,6 @@
 # API-WEATHER-CHATBOT-PROJECT
-API Integrated Weather Chatbot Project Using API, HTML, CSS and JavaScript
-[index.html](https://github.com/user-attachments/files/25298623/index.html)
+
+[index.html](https://github.com/user-attachments/files/25299086/index.html)
 <!DOCTYPE html>
 <html lang="en">
 
