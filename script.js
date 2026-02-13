@@ -1,4 +1,5 @@
 
+
 const apiKey = "db20eb80dc19413baf8191533260302";
 
 async function fetchWeather(city) {
