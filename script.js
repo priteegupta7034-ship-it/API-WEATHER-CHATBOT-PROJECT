@@ -1,46 +1,47 @@
-const apiKey = "db20eb80dc19413baf8191533260302";
-const searchBtn = document.getElementById("searchBtn");
-const locationInput = document.getElementById("locationInput");
-const weatherResult = document.getElementById("weatherResult");
-const cityName = document.getElementById("cityName");
-const temperature = document.getElementById("temperature");
-const condition = document.getElementById("condition");
-const weatherIcon = document.getElementById("weatherIcon");
-const errorMsg = document.getElementById("errorMsg");
 
-searchBtn.addEventListener("click", getWeather);
-locationInput.addEventListener("keypress", (e) => {
-    if (e.key === "Enter") getWeather();
+const apiKey = "db20eb80dc19413baf8191533260302";
+
+async function fetchWeather(city) {
+    const url = `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${city}&days=7&aqi=no`;
+
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
+
+        // Update Top Section
+        document.getElementById('cityName').innerText = data.location.name;
+        document.getElementById('temp').innerText = Math.round(data.current.temp_c);
+        document.getElementById('humidity').innerText = data.current.humidity;
+        document.getElementById('wind').innerText = data.current.wind_kph;
+        document.getElementById('pressure').innerText = data.current.pressure_mb;
+        document.getElementById('mainIcon').src = "https:" + data.current.condition.icon;
+
+        // Update 7-Day Row
+        const forecastRow = document.getElementById('forecastRow');
+        forecastRow.innerHTML = ""; // Clear old icons
+
+        data.forecast.forecastday.forEach(item => {
+            const date = new Date(item.date);
+            const dayName = date.toLocaleDateString('en-US', { weekday: 'short' });
+
+            const card = document.createElement('div');
+            card.className = 'day-card';
+            card.innerHTML = `
+                <div class="day-name">${dayName}</div>
+                <img src="https:${item.day.condition.icon}">
+                <div class="day-temp">${Math.round(item.day.avgtemp_c)}°C</div>
+            `;
+            forecastRow.appendChild(card);
+        });
+
+    } catch (error) {
+        console.log("Error fetching weather");
+    }
+}
+
+document.getElementById('searchBtn').addEventListener('click', () => {
+    fetchWeather(document.getElementById('cityInput').value);
 });
 
-function getWeather() {
-    const location = locationInput.value.trim();
-    if (!location) {
-        showError("Please enter a city name.");
-        return;
-    }
-
-    // Using HTTPS to ensure GitHub Pages allows the request
-    const url = `https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${location}`;
-
-    fetch(url)
-        .then(response => {
-            if (!response.ok) throw new Error("City not found");
-            return response.json();
-        })
-        .then(data => {
-            weatherResult.classList.remove("hidden");
-            errorMsg.classList.add("hidden");
-            cityName.textContent = `${data.location.name}, ${data.location.country}`;
-            temperature.textContent = `Temperature: ${data.current.temp_c}°C`;
-            condition.textContent = `Condition: ${data.current.condition.text}`;
-            weatherIcon.src = `https:${data.current.condition.icon}`;
-        })
-        .catch(() => showError("Failed to fetch weather data."));
-}
-
-function showError(message) {
-    errorMsg.textContent = message;
-    errorMsg.classList.remove("hidden");
-    weatherResult.classList.add("hidden");
-}
+// Load a city by default
+fetchWeather("London");
