@@ -1,0 +1,105 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+}
+
+body {
+    /* Bright blue gradient background like your image */
+    background: blueviolet;
+    background: linear-gradient(180deg, green 0%, #1e40af 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: blueviolet;
+}
+
+.app-wrapper {
+    width: 90%;
+    max-width: 850px;
+    text-align: center;
+}
+
+.search-container {
+    margin-bottom: 40px;
+}
+
+input {
+    padding: 10px 20px;
+    border-radius: 20px;
+    border: none;
+    width: 250px;
+    outline: none;
+}
+
+button {
+    padding: 10px 20px;
+    border-radius: 20px;
+    border: none;
+    background: #fbbf24;
+    /* Yellow button */
+    color: #1e3a8a;
+    font-weight: bold;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.current-weather {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 60px;
+}
+
+.info-left {
+    text-align: left;
+}
+
+#cityName {
+    font-size: 3rem;
+}
+
+.main-temp {
+    font-size: 5rem;
+}
+
+.details p {
+    margin-top: 5px;
+    font-size: 1.1rem;
+}
+
+/* THIS PART FIXES THE 7-DAY ROW */
+.forecast-grid {
+    display: flex;
+    /* Makes items go horizontally */
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.day-card {
+    background: #3b82f6;
+    /* Solid medium blue card */
+    padding: 15px 5px;
+    border-radius: 10px;
+    flex: 1;
+    /* Makes all cards equal width */
+    border: 1px solid #60a5fa;
+}
+
+.day-card img {
+    width: 45px;
+}
+
+.day-card .day-name {
+    font-weight: bold;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+}
+
+.day-card .day-temp {
+    font-size: 1rem;
+    font-weight: bold;
+}
