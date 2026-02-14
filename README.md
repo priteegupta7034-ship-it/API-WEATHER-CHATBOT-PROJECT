@@ -1,6 +1,5 @@
-# API-WEATHER-CHATBOT-PROJECT
 
-[index.html](https://github.com/user-attachments/files/25299086/index.html)
+[index.html](https://github.com/user-attachments/files/25317949/index.html)
 <!DOCTYPE html>
 <html lang="en">
 
